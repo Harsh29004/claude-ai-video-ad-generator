@@ -1,7 +1,12 @@
 ---
 name: marketing-campaign-video
 description: End-to-end marketing campaign builder. Researches a product, mines real and current user problems from the web (Reddit, app-store and G2 reviews, forums, news), maps each problem to how the product solves it, then turns the strongest angles into a campaign plan, ad copy and a realistic video ad with lifelike AI-generated human characters. The video part covers script, cast, shot prompts, clips generated through fal.ai (Veo 3.1 / Kling) and an ffmpeg-assembled final cut with captions, app screens, end card and AI disclosure. Use this skill whenever the user wants a marketing campaign, ad campaign, launch campaign, promo, explainer or UGC-style video ad, ad creatives, or a video with real-looking people for a product, app, SaaS or service. This includes casual asks like "make an ad for our app", "market this product", "create a promo video with people", or a product URL plus "do marketing for this".
-compatibility: Needs web search/fetch for research. Video rendering needs Python 3.8+, ffmpeg/ffprobe on PATH, and a fal.ai API key (FAL_KEY) for clip generation. Without a key the skill delivers a copy-paste prompt pack instead.
+compatibility: Any Agent Skills-compatible agent with web search and page fetch. Video rendering also needs a shell, Python 3.8+, ffmpeg/ffprobe on PATH, and a fal.ai API key (FAL_KEY). Without a shell or key the skill delivers a copy-paste prompt pack instead.
+license: MIT
+metadata:
+  author: Harsh29004
+  version: "1.1.0"
+  repository: https://github.com/Harsh29004/claude-ai-video-ad-generator
 ---
 
 # Marketing Campaign + Realistic Video Ad
@@ -16,7 +21,7 @@ Pipeline, one file per phase. Later phases read your notes instead of re-searchi
 | 4 Campaign plan | `04-campaign-plan.md` | Big idea, messaging, hooks, ad copy, channels, tests |
 | 5 Video | `05-video/` | Script → cast → `shots.json` → clips → final cut |
 
-Scripts live in `${CLAUDE_SKILL_DIR}/scripts/` (the folder containing this SKILL.md). Read the references only when you reach the phase that needs them:
+In this file, `<skill-dir>` means the folder containing this SKILL.md. All paths are relative to it, which keeps the skill portable across agents (Claude Code, Codex, Gemini CLI, Copilot, Cursor and others). Use the absolute path when running scripts from the campaign folder. Read the references only when you reach the phase that needs them:
 - `references/research-playbook.md`: query patterns, sources by product type, scoring (Phases 1–3)
 - `references/video-production.md`: model choice, realistic-human prompt formula, `shots.json` format, review loop (Phase 5)
 - `references/compliance.md`: claims, synthetic actors and disclosure rules (check before finalizing copy and video)
@@ -115,11 +120,11 @@ Read `references/video-production.md` now. It has the prompt formula for realist
 
 1. **Script & storyboard → `storyboard.md`.** Use the top angle and this structure: Hook (0–3 s, a person in the pain moment) → Agitate (the failing workaround) → Reveal (the product moment, ideally a real app screenshot) → Payoff (the after state, visible emotion) → End card (logo, CTA). Give each beat its timing, dialogue (about 2.5 words/sec, so ≤18 words per 8-s shot), camera, setting and audio.
 2. **Cast.** Write a *character bible*: 1–3 fictional people who match the target audience (age, ethnicity, region, clothing, hair, distinguishing details, voice or accent). Write the bible once and reuse it verbatim in every shot through `{{name}}` placeholders. That consistency is what keeps the same face across cuts.
-3. **Shot list → `shots.json`.** Start from `${CLAUDE_SKILL_DIR}/scripts/shots.example.json`. Don't let the model render app UI or text; it garbles it. Show the phone at an angle or the screen glow, then cut to an `image` shot of the real screenshot. If no screenshot was supplied, use a placeholder image shot and say so.
-4. **Dry run (free):** `python "${CLAUDE_SKILL_DIR}/scripts/generate_video.py" 05-video/shots.json --dry-run`. This validates placeholders and files and prints the cost estimate. Show the user the estimate.
-5. **Generate.** It needs `FAL_KEY` (env var or `.env`). First run the look check, `... generate_video.py 05-video/shots.json --only <hook-id>`, and inspect the clip with a frame grab (`ffmpeg -ss 2 -i clip.mp4 -frames:v 1 frame.png`, then view it). Check faces, hands, lip-sync and artifacts. Once it looks right and the user approved the spend, run without `--only`. Run long generations in the background. Re-render a bad shot with `--only <id> --force` after editing its prompt or seed.
+3. **Shot list → `shots.json`.** Start from `<skill-dir>/scripts/shots.example.json`. Don't let the model render app UI or text; it garbles it. Show the phone at an angle or the screen glow, then cut to an `image` shot of the real screenshot. If no screenshot was supplied, use a placeholder image shot and say so.
+4. **Dry run (free):** `python "<skill-dir>/scripts/generate_video.py" 05-video/shots.json --dry-run`. This validates placeholders and files and prints the cost estimate. Show the user the estimate.
+5. **Generate.** It needs `FAL_KEY` (env var or `.env`). First run the look check, `... generate_video.py 05-video/shots.json --only <hook-id>`, and inspect the clip with a frame grab (`ffmpeg -ss 2 -i clip.mp4 -frames:v 1 frame.png`, then view it). Check faces, hands, lip-sync and artifacts. Once it looks right and the user approved the spend, run without `--only`. Run long generations in the background if your agent supports it. Re-render a bad shot with `--only <id> --force` after editing its prompt or seed.
    **No API key, or the user chose prompt-pack only:** skip generation. Write `05-video/prompt-pack.md` with each shot's final prompt (placeholders expanded), negative prompt, duration and aspect, ready to paste into Veo/Flow, Kling, Sora or any generator. Tell the user that dropping the clips into `05-video/clips/<shot-id>.mp4` lets step 6 assemble them.
-6. **Assemble:** `python "${CLAUDE_SKILL_DIR}/scripts/assemble_video.py" 05-video/shots.json`. This scales and crops every shot to the target size, burns in captions, adds the disclosure label, renders the end card, concatenates, optionally mixes music, and writes `final/<project>.mp4` plus an `.srt`. Run `--check` first if anything is missing. Grab 2–3 frames of the final cut and look at them before handing off.
+6. **Assemble:** `python "<skill-dir>/scripts/assemble_video.py" 05-video/shots.json`. This scales and crops every shot to the target size, burns in captions, adds the disclosure label, renders the end card, concatenates, optionally mixes music, and writes `final/<project>.mp4` plus an `.srt`. Run `--check` first if anything is missing. Grab 2–3 frames of the final cut and look at them before handing off.
 
 ## Guardrails
 
