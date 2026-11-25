@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: consumer-app-india-reels
+expected_outcome: |
+  A campaigns/ folder with all five phases: sourced product brief (user-provided description cited as the source), dated live problem research from real web sources, a scored problem-to-solution map, a campaign plan with length-checked ad copy, and a 9:16 video package (storyboard, valid shots.json with a character bible and Hinglish dialogue, and a prompt pack) without any attempt to call a paid API.

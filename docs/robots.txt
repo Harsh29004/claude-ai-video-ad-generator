@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://harsh29004.github.io/claude-ai-video-ad-generator/sitemap.xml

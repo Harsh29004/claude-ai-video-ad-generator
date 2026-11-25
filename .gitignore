@@ -1,0 +1,15 @@
+# secrets
+.env
+.env.*
+# generated campaigns and render scratch
+campaigns/
+.work/
+clips/_state.json
+*.part
+# python / os
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+# release builds
+dist/
