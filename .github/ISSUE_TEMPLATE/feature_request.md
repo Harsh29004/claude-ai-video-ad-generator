@@ -1,9 +1,9 @@
 ---
 name: Feature request
-about: Suggest a model, format, market or workflow to support
+about: Suggest a scene type, media format, or video workflow
 labels: enhancement
 ---
 
-**What would you like the skill to do?**
+**What would you like the video engine to do?**
 
 **Why / who is it for?**

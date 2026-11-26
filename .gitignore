@@ -1,15 +1,12 @@
 # secrets
 .env
 .env.*
-# generated campaigns and render scratch
-campaigns/
+# render scratch
 .work/
-clips/_state.json
-*.part
-# python / os
-__pycache__/
-*.pyc
+# OS
 .DS_Store
 Thumbs.db
-# release builds
-dist/
+# TypeScript and Remotion
+node_modules/
+out/
+/public/assets/

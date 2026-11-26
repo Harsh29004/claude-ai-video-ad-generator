@@ -1,20 +1,17 @@
 # Contributing
 
-Thanks for helping improve the **AI Marketing Campaign & Video Ad Generator** skill!
+Thanks for helping improve the **Universal Video Generator**!
 
 ## Ways to contribute
-- **Model presets**: add a new fal.ai video model to `skills/marketing-campaign-video/references/video-production.md` (endpoint, input fields, strengths, price).
-- **Prompt recipes**: realistic-human prompt patterns for new industries (fintech, edtech, D2C, B2B SaaS, local services).
-- **Research sources**: better query patterns or sources for a market or language in `references/research-playbook.md`.
-- **Scripts**: bug fixes or features in `scripts/generate_video.py` / `scripts/assemble_video.py` (standard library + ffmpeg only, please).
-- **Example campaigns**: share a finished campaign folder (no secrets, no real people's likeness).
+- **Scene types**: add reusable 2D or 3D scenes with a validated storyboard contract.
+- **Timeline and rendering**: improve playback, media support, and exports.
+- **Example storyboards**: demonstrate a video style, language, or aspect ratio in `examples/`.
 
 ## Ground rules
-1. Keep `SKILL.md` lean (under ~200 lines). Put detail in `references/`.
-2. No API keys or `.env` files in commits.
-3. Test script changes with `--dry-run` / `--check` and one real render if you can.
-4. Keep the guardrails: sourced claims, fictional characters, AI-disclosure label.
-5. Validate before opening a PR: `claude plugin validate .`
+1. Install dependencies with `npm ci` (Node.js 22+).
+2. Keep animations frame-driven, and add tests for storyboard validation changes.
+3. Run `npm run typecheck` and `npm test`. For visual changes, check `npm run studio` and export a demo with `npm run render -- out/space-explainer.mp4`.
+4. Do not commit API keys or `.env` files. Only share media you have permission to redistribute.
 
 ## Pull requests
-Fork → branch (`feat/kling-v4-preset`) → commit → PR with a short description and, for video changes, a frame grab or clip.
+Open a PR from a feature branch with a short description and, for visual changes, a frame grab or clip.

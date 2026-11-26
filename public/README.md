@@ -1,0 +1,1 @@
+Put local media for your videos under `public/assets/`. Refer to it in your storyboard as `assets/file.mp4` (without `public/`). This assets folder is git-ignored by default.

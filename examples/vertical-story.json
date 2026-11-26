@@ -1,0 +1,27 @@
+{
+  "project": {
+    "version": 1,
+    "title": "एक छोटी कहानी",
+    "width": 540,
+    "height": 960,
+    "fps": 30,
+    "background": "#23152f",
+    "accent": "#ffc990",
+    "scenes": [
+      {
+        "id": "opening",
+        "type": "text",
+        "durationInFrames": 90,
+        "headline": "आख़िरी रोशनी",
+        "body": "शहर सो चुका था। एक खिड़की में अब भी रोशनी थी।"
+      },
+      {
+        "id": "ending",
+        "type": "text",
+        "durationInFrames": 90,
+        "headline": "वह मेरा इंतज़ार कर रही थी।",
+        "background": "#37214a"
+      }
+    ]
+  }
+}

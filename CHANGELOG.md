@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+### Added
+- General-purpose TypeScript and Remotion engine for validated storyboards, 2D and 3D scenes, and MP4 export.
+
+### Removed
+- Retired the old marketing agent skill, its Python pipeline, plugin, chat kit, and release builder.
+
 ## [1.2.0] - 2026-11-26
 ### Added
 - **Voiceover:** per-shot `vo` lines generated with fal.ai TTS (default MiniMax Speech-02 HD with Hindi support; ElevenLabs as an alternative), or your own recording via `vo_path` / `voiceover.path`.

@@ -1,0 +1,38 @@
+{
+  "project": {
+    "version": 1,
+    "title": "Motion Lab / Orbits",
+    "width": 960,
+    "height": 540,
+    "fps": 30,
+    "background": "#09101f",
+    "accent": "#7df4d2",
+    "scenes": [
+      {
+        "id": "intro",
+        "type": "text",
+        "durationInFrames": 60,
+        "headline": "Why things orbit",
+        "body": "An object in orbit is falling while moving sideways fast enough to keep missing the surface."
+      },
+      {
+        "id": "motion-study",
+        "type": "three",
+        "durationInFrames": 120,
+        "geometry": "orb",
+        "material": "ceramic",
+        "color": "#389dcc",
+        "headline": "Gravity bends the path",
+        "caption": "Stylized illustration, not to scale."
+      },
+      {
+        "id": "summary",
+        "type": "text",
+        "durationInFrames": 60,
+        "headline": "Always falling. Always missing.",
+        "body": "That’s an orbit.",
+        "background": "#11233b"
+      }
+    ]
+  }
+}
