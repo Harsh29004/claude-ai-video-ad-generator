@@ -10,7 +10,7 @@
       "name": "marketing-campaign-video",
       "source": ".",
       "description": "Product research → live problem research → campaign plan → realistic AI video ad with human characters (Veo 3.1 / Kling + ffmpeg).",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "marketing",
       "tags": ["marketing", "video", "ads", "ai-video", "research"]
     }

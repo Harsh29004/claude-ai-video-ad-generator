@@ -1,7 +1,7 @@
 {
   "name": "marketing-campaign-video",
   "displayName": "AI Marketing Campaign & Video Ad Generator",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Research a product, find real user problems people are posting about right now, map them to how the product solves them, and generate a full marketing campaign plus a realistic AI video ad with lifelike human characters (Veo 3.1 / Kling via fal.ai, assembled with ffmpeg).",
   "author": {
     "name": "Harsh29004",

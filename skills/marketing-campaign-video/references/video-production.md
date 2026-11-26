@@ -7,10 +7,10 @@
 4. Prompt formula for realistic people
 5. Realism checklist
 6. App screens and text
-7. Dialogue and audio
+7. Voice, voiceover and music
 8. `shots.json` reference
 9. Review loop: artifact → fix
-10. Prompt pack (no API key)
+10. Route B: bring your own clips (no API key)
 11. Other aspect ratios
 
 ---
@@ -96,13 +96,34 @@ Video models garble UI and text, and a fake UI also misrepresents the product. S
 - Captions, headline and CTA are added in assembly, never generated. For non-Latin captions (Devanagari, Arabic...), set `"font"` in `shots.json` to a font covering that script (e.g. `C:/Windows/Fonts/Nirmala.ttc`, Noto Sans Devanagari), or keep captions in Latin script (Hinglish).
 - If no screenshots exist yet, use an `image` shot pointing at a placeholder (e.g. the logo) and tell the user to swap it.
 
-## 7. Dialogue and audio
+## 7. Voice, voiceover and music
 
-- About 2.5 words per second max: 4 s ≈ 8 words, 6 s ≈ 13, 8 s ≈ 18. Shorter lines lip-sync better.
-- Format: `<Name> says in <language/accent>: "<line>"`. One speaker per shot is the most reliable.
-- Write the dialogue in the audience's real language (Hindi, Hinglish, Spanish...). Captions carry the same line; translate them if the platform audience mixes languages.
-- Ask for ambient sound only ("no background music") in generated shots. Music is mixed once in assembly, so cuts don't jump between clashing scores.
-- Voice-over alternative: set `generate_audio: false`, record or generate the VO separately, and pass it as the `music` track with `volume: 1.0`.
+Every ad needs a voice and a music bed. A silent cut fails the quality gate.
+
+**Who speaks, per beat:**
+- **On-camera dialogue** (Veo 3.1 lip-syncs it): best for the hook and payoff, where a face talking to camera sells realism. Format: `<Name> says in <language/accent>: "<line>"`, one speaker per shot, about 2.5 words/sec (4 s ≈ 8 words, 6 s ≈ 13, 8 s ≈ 18).
+- **Voiceover** (`vo` on the shot): best for product and app-screen beats, and for a narrator tying the story together. The clip's own sound automatically drops to an ambience bed (`clip_volume` 0.35) under a VO line. Set `vo_start` (default 0.25 s) to time it.
+- Write both in the audience's real language (Hindi, Hinglish, Spanish…). Captions carry the same words.
+
+**Voiceover models (fal.ai, Route A):**
+| Endpoint | Notes |
+|---|---|
+| `fal-ai/minimax/speech-02-hd` (default) | `text` (≤5000 chars), `voice_setting` {`voice_id` e.g. "Wise_Woman", `speed` 0.5–2, `emotion` happy/neutral/surprised/…}, `language_boost` "Hindi"/"English"/…, `output_format` "url" (the script sets it). Hindi is supported explicitly |
+| `fal-ai/elevenlabs/tts/multilingual-v2` | `text`, `voice` (e.g. "Aria", "Rachel"), `stability`, `similarity_boost`, `speed` 0.7–1.2, `language_code` (ISO 639-1, e.g. "hi") |
+| `fal-ai/elevenlabs/tts/eleven-v3` | Most expressive. `text`, `voice`, `stability`, `language_code` |
+
+Pick a voice that fits the brand (warm and friendly for consumer apps, calm and confident for B2B), and keep one narrator per ad. In Route B the user can record the VO on a phone in a quiet room (often the most authentic option) and set `vo_path`.
+
+**Music (fal.ai, Route A):**
+| Endpoint | Notes |
+|---|---|
+| `fal-ai/elevenlabs/music` (default) | `prompt`, `force_instrumental: true`, `music_length_ms` (3,000–600,000; set to the ad length + 2,000) |
+| `fal-ai/lyria2` | `prompt`, `negative_prompt` (put "vocals, singing" here); fixed 30 s, 48 kHz WAV |
+| `fal-ai/stable-audio-25/text-to-audio` | `prompt`, `seconds_total` |
+
+Music prompt formula: *genre + region flavor + instruments + mood + tempo + "instrumental, no vocals, clean mix, suitable under voiceover"*. For example: "upbeat Indian lo-fi pop, light tabla groove, warm synth bass, hopeful, 100 BPM, instrumental, no vocals, clean mix suitable under voiceover". In Route B, use a royalty-free track (e.g. the YouTube Audio Library) and set `music.path`. Don't use copyrighted songs: platforms mute or block the ad.
+
+**The mix (automatic in the assembler):** clip sound + VO lines form the voice bus. The music is looped or trimmed to the ad length, faded in and out, and **ducked** under the voice bus (sidechain compression, so it dips whenever someone speaks). Everything is normalized to −14 LUFS with a −1.5 dBTP peak. Defaults: `music.volume` 0.22, `voiceover.volume` 1.0.
 
 ## 8. `shots.json` reference
 
@@ -120,15 +141,17 @@ See `scripts/shots.example.json` for a complete file.
 | `disclosure` | `{text: "AI-generated dramatization", position: "top"\|"bottom"}`; set `text` to "" only if the user explicitly declines |
 | `shots[]` | Ordered shots (below) |
 | `end_card` | `{headline, cta, logo, duration, bg, fg}`; `logo` is a path relative to `shots.json` |
-| `music` | `{path, volume}` (looped and faded out automatically) |
+| `voiceover` | `{model, input, volume, text_field?}` for per-shot `vo` lines (Route A), or `{path, start}` for one full recorded VO track |
+| `music` | `{model, input, volume, duck}` (generated) or `{path, volume, duck}` (your file). Required; `{"none": true}` only if the user asked for no music |
+| `transition` | `{type, duration}`: `cut` (default) or any ffmpeg xfade name such as `fade`, `smoothleft`, `slideup`, `circleopen`; 0.2–0.35 s |
 | `font` | Optional .ttf path; otherwise a system font is used |
 
 Shot types:
-- `generate`: `id`, `model?`, `input{...}`, `duration?` (planned seconds, else read from `input.duration`), `caption` or `captions[{text,start,end}]`, `trim?` `[start, end]` in seconds
+- `generate`: `id`, `model?`, `input{...}`, `duration?` (planned seconds, else read from `input.duration`), `caption` or `captions[{text,start,end}]`, `trim?` `[start, end]` in seconds, `vo?` (voiceover line), `vo_path?` (recorded line), `vo_start?`, `clip_volume?`
 - `image`: `id`, `path`, `duration`, `caption?`, `fit` `"contain"` (default) or `"cover"`, `motion` `"zoom"` (default) or `"none"`
 - `clip`: `id`, `path` (existing video, e.g. a screen recording), `duration?`, `trim?`, `fit` (default `"cover"`), `caption?`
 
-Generated clips land in `clips/<id>.mp4` beside `shots.json`. Use short, stable ids (`s01-hook`) because the cache and resume logic key on them.
+Generated clips land in `clips/<id>.mp4`, voiceover lines in `audio/vo-<id>.*`, and music in `audio/music.*` beside `shots.json`. Use short, stable ids (`s01-hook`) because the cache and resume logic key on them.
 
 ## 9. Review loop: artifact → fix
 
@@ -142,9 +165,17 @@ Generated clips land in `clips/<id>.mp4` beside `shots.json`. Use short, stable 
 | Model refuses or a safety block | Remove anything implying a real or famous person or minors, or violence; rephrase neutrally |
 | Bad clip, good prompt | Change `seed` (or add one) and rerun `--only <id> --force` |
 
-## 10. Prompt pack (no API key)
+## 10. Route B: bring your own clips (no API key)
 
-Write `05-video/prompt-pack.md`. Per shot: id · beat · duration · aspect · model suggestion · **final prompt with all placeholders expanded** · negative prompt · dialogue line · caption. Add a short "how to use" note: paste into Google Flow (Veo), Kling, Sora, Runway or similar; save each result as `05-video/clips/<id>.mp4`; then run the assembler.
+Write `05-video/prompt-pack.md` so a non-technical user can produce the clips in apps they already have, then stop and wait for the files:
+
+1. **Per shot:** id · beat · duration · aspect · the **final prompt with every placeholder expanded** · negative prompt · dialogue line · caption · **save as `clips/<id>.mp4`**.
+2. **Where to generate:** Gemini app or Google Flow (Veo 3.1: realistic people + lip-synced speech), Kling, Sora or Runway. Use 9:16 if the app offers it; otherwise keep the subject centered, because the assembler center-crops 16:9 to 9:16. Generate 2–3 takes of the hook and keep the best.
+3. **Voiceover:** the script per shot. Record it on a phone (quiet room, 15 cm from the mouth) or use any TTS tool, and save as `audio/vo-<id>.mp3`, or put one full track in `voiceover.path`.
+4. **Music:** a music-AI prompt (section 7) or a royalty-free track. Save it and set `music.path`.
+5. **Then:** "Tell me when the files are in place." Run `assemble_video.py --check`, then render.
+
+Never stand in for missing clips with stills, title cards or placeholders. The assembler refuses a still hook and slideshow-like cuts, and its quality gate fails frozen "clips".
 
 ## 11. Other aspect ratios
 

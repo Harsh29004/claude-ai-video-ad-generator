@@ -32,7 +32,7 @@ It is not tied to one AI. Install it in **Claude Code, Codex, Gemini CLI, Copilo
 | 2. Live problem research | Mines Reddit, app-store and G2 reviews, forums and news for current pain points, with dates and links | `02-problem-research.md` |
 | 3. Problem → solution map | Scores Pain × Frequency × Fit and picks the 3 strongest ad angles | `03-solution-map.md` |
 | 4. Campaign plan | Big idea, positioning, hooks, Meta, TikTok, Google and LinkedIn ad copy within character limits, A/B tests, KPIs, timeline | `04-campaign-plan.md` |
-| 5. AI video ad | Script, character bible, shot list → clips with **Veo 3.1 / Kling** → final cut with captions, your real app screens, end card | `05-video/final/*.mp4` |
+| 5. AI video ad | Script, character bible, shot list → realistic clips with **Veo 3.1 / Kling** + **AI voiceover** + **background music** → final cut with transitions, captions, your real app screens, end card, then an automatic quality check | `05-video/final/*.mp4` |
 
 ## 🧠 How it works
 
@@ -43,8 +43,8 @@ flowchart LR
     C --> D[Problem → solution map<br/>Pain × Frequency × Fit]
     D --> E[Campaign plan<br/>hooks · ad copy · channels]
     E --> F[Storyboard +<br/>character bible]
-    F --> G[fal.ai<br/>Veo 3.1 / Kling clips]
-    G --> H[ffmpeg assembly<br/>captions · app screens · end card]
+    F --> G[fal.ai<br/>Veo 3.1 / Kling clips<br/>+ voiceover + music]
+    G --> H[ffmpeg edit<br/>transitions · ducked music<br/>captions · end card · QC]
     H --> I[🎬 Final video ad]
 ```
 
@@ -61,6 +61,8 @@ flowchart LR
 - 🎯 **Honest problem–solution fit scoring**: no promises your product can't keep
 - ✍️ **Ready-to-run ad copy** for Meta, TikTok, YouTube, Google RSA and LinkedIn, length-checked
 - 🎬 **Realistic AI video ads** with human characters and lip-synced dialogue (Veo 3.1, Kling)
+- 🎙️ **Voiceover + background music**: AI voiceover in Hindi, English and more (MiniMax, ElevenLabs), generated instrumental music that dips automatically under speech, mixed to -14 LUFS
+- ✅ **Quality gate**: never ships a slideshow, placeholder or silent cut. Every render is checked for real motion, loudness and silent gaps
 - 🌏 **Any market and language**: dialogue and captions in your audience's own language
 - 💸 **Cost control**: dry-run cost estimate, cached clips, resumable jobs, so you never pay twice
 - 📱 **All formats**: 9:16 Reels, TikTok and Shorts, 16:9 YouTube and LinkedIn, 1:1 and 4:5 feed
@@ -186,14 +188,14 @@ python <skill-dir>/scripts/generate_video.py 05-video/shots.json --dry-run
 # Look check: render only the hook shot first
 python <skill-dir>/scripts/generate_video.py 05-video/shots.json --only s01-hook
 
-# Render everything (cached clips are skipped, interrupted jobs resume)
+# Render everything: clips + voiceover + music (cached files are skipped, interrupted jobs resume)
 python <skill-dir>/scripts/generate_video.py 05-video/shots.json
 
-# Assemble: captions, app screens, end card, AI label, music → final MP4 + SRT
+# Edit: transitions, voiceover, ducked music, captions, app screens, end card, AI label → MP4 + SRT + QC
 python <skill-dir>/scripts/assemble_video.py 05-video/shots.json
 ```
 
-**No API key or no terminal (chat apps)?** The skill writes a `prompt-pack.md` you can paste into Google Flow (Veo), Kling, Sora or Runway. Drop the clips into `05-video/clips/` and the assembler builds the final ad, or edit them in CapCut or Premiere.
+**No API key? Bring your own clips.** The skill writes a `prompt-pack.md` with exact prompts for the Gemini app / Google Flow (Veo), Kling, Sora or Runway, plus a voiceover script and a music prompt. Save the clips as `05-video/clips/<shot-id>.mp4`, add your recorded voiceover and a royalty-free track, and the assembler does the full edit. In chat apps, follow the same pack in CapCut or Premiere.
 
 ### 🎥 Supported video models
 
@@ -203,6 +205,8 @@ python <skill-dir>/scripts/assemble_video.py 05-video/shots.json
 | `fal-ai/kling-video/v3/pro/text-to-video` | Longer 3–15 s shots, multi-shot, 1:1 | see fal.ai |
 | `fal-ai/kling-video/v3/pro/image-to-video` | Keeping one face consistent from a reference image | see fal.ai |
 | Any other fal.ai video endpoint | Set `model` and its `input` in `shots.json` | see fal.ai |
+| `fal-ai/minimax/speech-02-hd` (voiceover) | Natural voiceover, Hindi + English + more, emotion control | see fal.ai |
+| `fal-ai/elevenlabs/music` (music) | Instrumental background music cut to the exact ad length | see fal.ai |
 
 <sub>*Snapshot from Nov 2026. Check current pricing on fal.ai. The dry run always shows the estimate before you spend anything.</sub>
 
