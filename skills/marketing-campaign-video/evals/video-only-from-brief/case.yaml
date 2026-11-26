@@ -1,6 +1,0 @@
-schema_version: "1.1"
-name: video-only-from-brief
-expected_outcome: |
-  Skips Phases 1-4, reads the provided brief, writes storyboard and shots.json for a ~15s 9:16 ad with two consistent adult characters, runs the dry run and shows the cost estimate, then generates only the hook shot as a look check before the full render.
-context:
-  scaffold_script: place-files.sh
