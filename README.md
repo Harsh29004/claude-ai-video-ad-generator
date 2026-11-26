@@ -21,6 +21,12 @@ npm run typecheck
 npm test
 ```
 
+For a custom 30-second educational example with animated orbital diagrams, Roman Hinglish subtitles, and pre-rendered Hindi TTS narration, select `MoonPhases` in Studio or export it directly:
+
+```bash
+npx remotion render src/index.ts MoonPhases out/moon-phases-hinglish.mp4
+```
+
 ## Create a video
 
 1. Copy `examples/space-explainer.json`. Edit `project.title`, `width`, `height`, `fps`, and `scenes`. Duration comes from the sum of each scene's `durationInFrames` (90 frames at 30 fps is 3 seconds).
