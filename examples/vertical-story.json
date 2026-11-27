@@ -7,20 +7,59 @@
     "fps": 30,
     "background": "#23152f",
     "accent": "#ffc990",
+    "look": {
+      "grain": 0.4,
+      "vignette": 0.35,
+      "grade": "warm"
+    },
     "scenes": [
       {
         "id": "opening",
         "type": "text",
         "durationInFrames": 90,
         "headline": "आख़िरी रोशनी",
-        "body": "शहर सो चुका था। एक खिड़की में अब भी रोशनी थी।"
+        "body": "शहर सो चुका था।"
+      },
+      {
+        "id": "window",
+        "type": "cinematic",
+        "durationInFrames": 120,
+        "transition": {
+          "type": "fade",
+          "durationInFrames": 18
+        },
+        "world": "city",
+        "mood": "night",
+        "camera": {
+          "move": "crane-up",
+          "intensity": 0.8,
+          "lens": 28
+        },
+        "headline": "एक खिड़की में अब भी रोशनी थी।",
+        "titlePosition": "bottom"
       },
       {
         "id": "ending",
         "type": "text",
         "durationInFrames": 90,
+        "transition": {
+          "type": "blur",
+          "durationInFrames": 18
+        },
         "headline": "वह मेरा इंतज़ार कर रही थी।",
         "background": "#37214a"
+      }
+    ],
+    "audio": [
+      {
+        "src": "demo/vertical-story-music.mp3",
+        "role": "music",
+        "volume": 0.9
+      },
+      {
+        "src": "demo/vertical-story-sfx.mp3",
+        "role": "sfx",
+        "volume": 0.7
       }
     ]
   }

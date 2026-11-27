@@ -3,27 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Turn structured storyboards into 2D and 3D videos with TypeScript and Remotion.">
-  <title>Universal Video Generator</title>
+  <meta name="description" content="Make cinematic, moving 3D videos from a storyboard or a prompt: planets, night cities, drone flights, product shots and 3D titles, with voiceover, music and sound effects. Open-source, built on Remotion and three.js.">
+  <title>Universal Video Generator: cinematic 3D videos from a storyboard</title>
   <style>
     :root { color-scheme: dark; font: 1rem/1.65 system-ui, sans-serif; }
-    body { margin: 0; background: #09101f; color: #e3eaf6; }
-    main { max-width: 45rem; margin: auto; padding: 4rem 1.25rem; }
-    h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
-    a { color: #7df4d2; }
-    pre { padding: 1rem; overflow-x: auto; background: #15243b; border-radius: .5rem; }
+    body { margin: 0; background: #05060b; color: #e3eaf6; }
+    main { max-width: 46rem; margin: auto; padding: 4rem 1.25rem; }
+    h1 { font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.1; }
+    a { color: #5fd4ff; }
+    pre { padding: 1rem; overflow-x: auto; background: #111a2c; border-radius: .5rem; }
+    li { margin: .3rem 0; }
   </style>
 </head>
 <body>
   <main>
-    <h1>Universal Video Generator</h1>
-    <p>Build explainers, stories, tutorials, motion graphics, and more with TypeScript and Remotion. Mix animated text, images, footage, captions, audio, and procedural 3D in a single storyboard.</p>
+    <h1>Cinematic 3D videos from a storyboard</h1>
+    <p>Every shot is rendered in real 3D, frame by frame. The camera moves; the lighting, reflections, bloom and depth of field are physically based; titles animate; and each video comes with voiceover, music and sound effects. Nothing is a static slide.</p>
+    <ul>
+      <li><strong>Worlds:</strong> product studio, planets lit by a real sun, a night city with traffic and neon, mountains at golden hour, and motion-graphics space.</li>
+      <li><strong>Subjects:</strong> phones and laptops showing your screenshots, chrome and gold 3D titles, Earth, the Moon and other planets, and glTF models.</li>
+      <li><strong>Agent skill:</strong> <code>npx skills add Harsh29004/claude-ai-video-ad-generator</code>, then ask for a video.</li>
+    </ul>
     <h2>Try it locally</h2>
-    <p>Clone the repository, then run these commands from its root with Node.js 22 or newer:</p>
     <pre><code>npm ci
-npm run studio
-npm run render -- out/space-explainer.mp4</code></pre>
-    <p><a href="https://github.com/Harsh29004/claude-ai-video-ad-generator#readme">Read the setup and storyboard guide on GitHub</a>.</p>
+npx remotion render src/index.ts UniversalVideo out/cinematic-reel.mp4 --props=examples/cinematic-reel.json
+npm run check -- out/cinematic-reel.mp4</code></pre>
+    <p><a href="https://github.com/Harsh29004/claude-ai-video-ad-generator#readme">Read the guide on GitHub</a></p>
   </main>
 </body>
 </html>

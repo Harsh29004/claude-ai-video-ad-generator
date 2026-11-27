@@ -10,3 +10,7 @@ Thumbs.db
 node_modules/
 out/
 /public/assets/
+# your own storyboards (examples/ is for shared ones)
+/projects/
+# old release zips
+dist/

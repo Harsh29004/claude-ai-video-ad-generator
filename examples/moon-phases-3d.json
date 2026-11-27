@@ -1,0 +1,158 @@
+{
+  "project": {
+    "version": 1,
+    "title": "Space Field Notes",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "background": "#03050b",
+    "accent": "#9fd3ff",
+    "look": {
+      "grain": 0.3,
+      "vignette": 0.3,
+      "grade": "cool"
+    },
+    "scenes": [
+      {
+        "id": "same-moon",
+        "type": "cinematic",
+        "durationInFrames": 180,
+        "world": "space",
+        "subject": {
+          "kind": "planet",
+          "planet": "moon",
+          "sunAngle": [
+            128,
+            25
+          ],
+          "spin": 0.4
+        },
+        "camera": {
+          "move": "push-in",
+          "intensity": 0.8,
+          "shake": 0.08,
+          "lens": 40,
+          "ease": "cinematic"
+        },
+        "headline": "Same Moon. Different shape?",
+        "titlePosition": "lower-third",
+        "voiceover": {
+          "src": "moon-phases/voice-1.mp3"
+        },
+        "caption": "Chaand kabhi patla, kabhi poora gol. Par uski shape badalti nahi hai."
+      },
+      {
+        "id": "half-lit",
+        "type": "cinematic",
+        "durationInFrames": 240,
+        "transition": {
+          "type": "flash",
+          "durationInFrames": 14
+        },
+        "world": "space",
+        "subject": {
+          "kind": "planet",
+          "planet": "moon",
+          "sunAngle": [
+            95,
+            95
+          ],
+          "spin": 0.3
+        },
+        "camera": {
+          "move": "orbit",
+          "intensity": 1.3,
+          "shake": 0.06,
+          "lens": 40,
+          "angle": -25
+        },
+        "headline": "Sunlight always lights half of it",
+        "titlePosition": "top",
+        "voiceover": {
+          "src": "moon-phases/voice-2.mp3"
+        },
+        "caption": "Suraj chaand ke aadhe hisse ko roshan karta hai. Dharti se uska kitna hissa dikhta hai?"
+      },
+      {
+        "id": "the-orbit",
+        "type": "cinematic",
+        "durationInFrames": 270,
+        "transition": {
+          "type": "zoom",
+          "durationInFrames": 16
+        },
+        "world": "space",
+        "subject": {
+          "kind": "planet",
+          "planet": "earth",
+          "moon": true,
+          "orbitPath": true,
+          "sunAngle": [
+            55,
+            55
+          ],
+          "orbitTurns": 0.5
+        },
+        "camera": {
+          "move": "orbit",
+          "intensity": 1.5,
+          "shake": 0.06,
+          "lens": 32,
+          "distance": 0.62,
+          "height": 0.25,
+          "ease": "smooth"
+        },
+        "headline": "The orbit changes our view",
+        "titlePosition": "top",
+        "voiceover": {
+          "src": "moon-phases/voice-3.mp3"
+        },
+        "caption": "Chaand suraj ki taraf ho, toh uska andhera hissa dikhta hai. Doosri taraf poora roshan hissa dikhta hai."
+      },
+      {
+        "id": "takeaway",
+        "type": "cinematic",
+        "durationInFrames": 230,
+        "transition": {
+          "type": "blur",
+          "durationInFrames": 18
+        },
+        "world": "space",
+        "subject": {
+          "kind": "planet",
+          "planet": "moon",
+          "sunAngle": [
+            178,
+            -178
+          ],
+          "spin": 0.3
+        },
+        "camera": {
+          "move": "pull-out",
+          "intensity": 0.7,
+          "shake": 0.05,
+          "lens": 45
+        },
+        "headline": "Same Moon. New angle.",
+        "subhead": "One full cycle of phases takes about 29½ days",
+        "titlePosition": "lower-third",
+        "voiceover": {
+          "src": "moon-phases/voice-4.mp3"
+        },
+        "caption": "Toh ye dharti ki chhaaya nahi hai. Chaand wahi hai, bas dekhne ka angle badalta hai."
+      }
+    ],
+    "audio": [
+      {
+        "src": "demo/moon-phases-3d-music.mp3",
+        "role": "music",
+        "volume": 0.55
+      },
+      {
+        "src": "demo/moon-phases-3d-sfx.mp3",
+        "role": "sfx",
+        "volume": 0.8
+      }
+    ]
+  }
+}

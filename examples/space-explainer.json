@@ -11,27 +11,62 @@
       {
         "id": "intro",
         "type": "text",
-        "durationInFrames": 60,
+        "durationInFrames": 75,
         "headline": "Why things orbit",
         "body": "An object in orbit is falling while moving sideways fast enough to keep missing the surface."
       },
       {
         "id": "motion-study",
-        "type": "three",
-        "durationInFrames": 120,
-        "geometry": "orb",
-        "material": "ceramic",
-        "color": "#389dcc",
+        "type": "cinematic",
+        "durationInFrames": 150,
+        "transition": {
+          "type": "zoom",
+          "durationInFrames": 15
+        },
+        "world": "space",
+        "subject": {
+          "kind": "planet",
+          "planet": "earth",
+          "moon": true,
+          "orbitPath": true,
+          "sunAngle": [
+            45,
+            45
+          ],
+          "orbitTurns": 0.35
+        },
+        "camera": {
+          "move": "orbit",
+          "intensity": 1.2,
+          "distance": 0.8
+        },
         "headline": "Gravity bends the path",
+        "titlePosition": "top",
         "caption": "Stylized illustration, not to scale."
       },
       {
         "id": "summary",
         "type": "text",
-        "durationInFrames": 60,
+        "durationInFrames": 75,
+        "transition": {
+          "type": "fade",
+          "durationInFrames": 15
+        },
         "headline": "Always falling. Always missing.",
         "body": "That’s an orbit.",
         "background": "#11233b"
+      }
+    ],
+    "audio": [
+      {
+        "src": "demo/space-explainer-music.mp3",
+        "role": "music",
+        "volume": 0.9
+      },
+      {
+        "src": "demo/space-explainer-sfx.mp3",
+        "role": "sfx",
+        "volume": 0.7
       }
     ]
   }

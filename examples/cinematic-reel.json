@@ -1,0 +1,157 @@
+{
+  "project": {
+    "version": 1,
+    "title": "Cinematic 3D",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "background": "#05060b",
+    "accent": "#5fd4ff",
+    "look": {
+      "grain": 0.35,
+      "vignette": 0.3,
+      "grade": "teal-orange"
+    },
+    "scenes": [
+      {
+        "id": "hook",
+        "type": "cinematic",
+        "durationInFrames": 90,
+        "world": "abstract",
+        "subject": {
+          "kind": "text",
+          "text": "3D",
+          "material": "chrome"
+        },
+        "camera": {
+          "move": "spiral",
+          "intensity": 1.2,
+          "lens": 42
+        },
+        "headline": "Not a slideshow.",
+        "titlePosition": "bottom"
+      },
+      {
+        "id": "city",
+        "type": "cinematic",
+        "durationInFrames": 105,
+        "transition": {
+          "type": "whip",
+          "durationInFrames": 12,
+          "direction": "left"
+        },
+        "world": "city",
+        "mood": "neon",
+        "camera": {
+          "move": "fly-through",
+          "intensity": 1.4,
+          "lens": 24,
+          "shake": 0.2
+        },
+        "headline": "Real 3D worlds",
+        "subhead": "Rendered frame by frame",
+        "titlePosition": "top"
+      },
+      {
+        "id": "product",
+        "type": "cinematic",
+        "durationInFrames": 105,
+        "transition": {
+          "type": "flash",
+          "durationInFrames": 12
+        },
+        "world": "studio",
+        "subject": {
+          "kind": "device",
+          "device": "phone"
+        },
+        "camera": {
+          "move": "orbit",
+          "intensity": 1.4,
+          "lens": 50
+        },
+        "headline": "Product hero shots",
+        "titlePosition": "lower-third"
+      },
+      {
+        "id": "planet",
+        "type": "cinematic",
+        "durationInFrames": 105,
+        "transition": {
+          "type": "zoom",
+          "durationInFrames": 14
+        },
+        "world": "space",
+        "subject": {
+          "kind": "planet",
+          "planet": "earth",
+          "sunAngle": [
+            75,
+            40
+          ]
+        },
+        "camera": {
+          "move": "push-in",
+          "intensity": 1,
+          "lens": 35
+        },
+        "headline": "Planets with real light",
+        "titlePosition": "top"
+      },
+      {
+        "id": "valley",
+        "type": "cinematic",
+        "durationInFrames": 120,
+        "transition": {
+          "type": "fade",
+          "durationInFrames": 16
+        },
+        "world": "terrain",
+        "mood": "golden",
+        "camera": {
+          "move": "fly-through",
+          "intensity": 1.5,
+          "lens": 28,
+          "shake": 0.18
+        },
+        "headline": "Drone flights at golden hour",
+        "titlePosition": "top"
+      },
+      {
+        "id": "end",
+        "type": "cinematic",
+        "durationInFrames": 105,
+        "transition": {
+          "type": "flash",
+          "durationInFrames": 12
+        },
+        "world": "studio",
+        "mood": "golden",
+        "subject": {
+          "kind": "text",
+          "text": "MOTION",
+          "material": "gold"
+        },
+        "camera": {
+          "move": "push-in",
+          "intensity": 1.2,
+          "lens": 40
+        },
+        "subhead": "Every frame moves. Nothing is static.",
+        "titlePosition": "bottom"
+      }
+    ],
+    "audio": [
+      {
+        "src": "demo/cinematic-reel-music.mp3",
+        "role": "music",
+        "volume": 0.9
+      },
+      {
+        "src": "demo/cinematic-reel-sfx.mp3",
+        "role": "sfx",
+        "volume": 0.7
+      }
+    ]
+  }
+}
